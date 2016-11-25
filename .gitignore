@@ -1,0 +1,16 @@
+# python cache
+*.py[ocd]
+__pycache__/
+
+# IDE files
+.idea/
+*.sublime-*
+
+# Sphinx documentation
+docs/_build/
+
+# virtualenv
+.venv/
+venv/
+ENV/
+env/
