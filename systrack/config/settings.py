@@ -1,23 +1,25 @@
-import os
 from decouple import config
+from unipath import Path
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).ancestor(3)
+
+MEDIA_ROOT = BASE_DIR.child('media')
+MEDIA_URL = '/media/'
+
+STATIC_ROOT = BASE_DIR.child('static')
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = (
+    #BASE_DIR.child('assets'),
+)
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
-
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -39,12 +41,12 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
-ROOT_URLCONF = 'systrack.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR.child('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -57,11 +59,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'systrack.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -74,11 +72,7 @@ DATABASES = {
     }
 }
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
 
 TIME_ZONE = 'UTC'
 
@@ -87,9 +81,3 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
-STATIC_URL = '/static/'
